@@ -1,0 +1,2 @@
+pictuebox size - 21, 24 (background image lawyout - stretch)
+DONT FORGET this.controls.add(picture)
