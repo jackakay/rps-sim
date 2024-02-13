@@ -1,2 +1,3 @@
 pictuebox size - 21, 24 (background image lawyout - stretch)
 DONT FORGET this.controls.add(picture)
+we want them all to go towards the centre so we need weighted randoms based ont their location

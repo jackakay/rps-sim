@@ -33,9 +33,9 @@
             numericUpDown3 = new NumericUpDown();
             button1 = new Button();
             panel1 = new Panel();
-            PaperBox = new Panel();
-            RockBox = new Panel();
             ScissorBox = new Panel();
+            RockBox = new Panel();
+            PaperBox = new Panel();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
@@ -84,12 +84,12 @@
             panel1.Size = new Size(634, 426);
             panel1.TabIndex = 4;
             // 
-            // PaperBox
+            // ScissorBox
             // 
-            PaperBox.Location = new Point(134, 14);
-            PaperBox.Name = "PaperBox";
-            PaperBox.Size = new Size(358, 126);
-            PaperBox.TabIndex = 0;
+            ScissorBox.Location = new Point(28, 180);
+            ScissorBox.Name = "ScissorBox";
+            ScissorBox.Size = new Size(230, 202);
+            ScissorBox.TabIndex = 2;
             // 
             // RockBox
             // 
@@ -98,12 +98,12 @@
             RockBox.Size = new Size(229, 202);
             RockBox.TabIndex = 1;
             // 
-            // ScissorBox
+            // PaperBox
             // 
-            ScissorBox.Location = new Point(28, 180);
-            ScissorBox.Name = "ScissorBox";
-            ScissorBox.Size = new Size(230, 202);
-            ScissorBox.TabIndex = 2;
+            PaperBox.Location = new Point(134, 14);
+            PaperBox.Name = "PaperBox";
+            PaperBox.Size = new Size(358, 126);
+            PaperBox.TabIndex = 0;
             // 
             // Form1
             // 
