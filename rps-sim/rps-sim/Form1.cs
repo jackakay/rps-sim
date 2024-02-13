@@ -23,18 +23,26 @@ namespace rps_sim
             List<player> scissors = new List<player>();
             List<player> rock = new List<player>();
             List<player> paper = new List<player>();
-            
+            Spawn(Option.Rock, numR, rock);
         }
 
         private void Spawn(Option type, int num, List<player> player_)
         {
             if(type== Option.Rock)
             {
-                for(int i = 0; i < num; i++)
+                for (int i = 0; i < num; i++)
                 {
+                    PictureBox picture_ = new PictureBox
+                    {
+                        BackgroundImage = Image.FromFile("rock.png"),
+                        BackgroundImageLayout = ImageLayout.Stretch,
+                        Size = new Size(21, 24),
+                        Location = getSpawnLoc(type)
+                    };
                     player_.Add(
-                        new player { picture = new PictureBox { BackgroundImage = Image.FromFile("../rock.png"), BackgroundImageLayout = ImageLayout.Stretch, Size = new Size(21, 24), Location = getSpawnLoc(type) } }
+                        new player { picture = picture_ , type = (int)Option.Rock}
                         );
+                    RockBox.Controls.Add( picture_ );
                 }
             }
         }
