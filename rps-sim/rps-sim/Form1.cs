@@ -1,5 +1,6 @@
 using System.CodeDom;
 using System.DirectoryServices.ActiveDirectory;
+using System.Threading.Channels;
 
 namespace rps_sim
 {
@@ -51,7 +52,7 @@ namespace rps_sim
                 foreach (player p in arr[i].ToArray())
                 {
                     //0 for up, 1 for down, 2 for right , 3 for left
-                    int direction = rand.Next(4);
+                    int direction = GetDirection(p);
                     if (direction == 0)
                     {
                         if (p.picture.Location.Y > (MAX_MOVEMENT+1))
@@ -124,6 +125,58 @@ namespace rps_sim
             }
         }
 
+        private int GetDirection(player p)
+        {
+            //0 for up, 1 for down, 2 for right , 3 for left
+            int upWeight = 25;
+            int downWeight = 25;
+            int rightWeight = 25;
+            int leftWeight = 25;
+            if(p.picture.Location.X > panel1.Width/2)
+            {
+                //we want to move left
+                rightWeight = 15;
+                leftWeight = 35;
+            } else if(p.picture.Location.X < panel1.Width/2)
+            {
+                rightWeight = 35;
+                leftWeight = 15;
+            }else if(p.picture.Location.Y > panel1.Height / 2)
+            {
+                //we want to move up
+                upWeight = 35;
+                downWeight = 15;
+            }else if(p.picture.Location.Y < panel1.Height / 2)
+            {
+                upWeight = 15;
+                downWeight = 35;
+            }
+            int[] weights = { upWeight, downWeight, rightWeight, leftWeight };
+            int x = rand.Next(100);
+            int iteration = 0; 
+            foreach (int c in weights)
+            {
+                iteration++;
+                if ((x -= c) < 0)
+                    break;
+            }
+
+            switch (iteration)
+            {
+                case 1:
+                    return 0;
+                case 2:
+                    return 1;
+                case 3:
+                    return 2;
+                case 4:
+                    return 3;
+                //...
+                default:
+                    return rand.Next(4);
+            }
+        }
+
         private void Spawn(Option type, int num, List<player> player_)
         {
             if (type == Option.Rock)
@@ -150,6 +203,7 @@ namespace rps_sim
             {
                 for (int i = 0; i < num; i++)
                 {
+                    
                     PictureBox picture_ = new PictureBox
                     {
                         Name = "Paper " + i.ToString(),
