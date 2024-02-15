@@ -8,11 +8,12 @@ namespace rps_sim
 
     {
         public const int MAX_MOVEMENT = 10;
+        public const int GAME_TICK = 100;// tenth of a second
 
         List<player> scissors = new List<player>();
         List<player> rock = new List<player>();
         List<player> paper = new List<player>();
-
+        System.Windows.Forms.Timer MyTimer = new System.Windows.Forms.Timer();
 
         Random rand = new Random();
 
@@ -23,7 +24,9 @@ namespace rps_sim
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            MyTimer.Interval = (GAME_TICK); 
+            MyTimer.Tick += new EventHandler(Timer_Tick);
+            MyTimer.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,15 +41,20 @@ namespace rps_sim
 
 
 
-            System.Windows.Forms.Timer MyTimer = new System.Windows.Forms.Timer();
-            MyTimer.Interval = (100); // tenth of a second
-            MyTimer.Tick += new EventHandler(Timer_Tick);
+
+            MyTimer.Enabled = true;
             MyTimer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            
+
+
             List<player>[] arr = { rock, paper, scissors };
+
+            
+            
             for (int i = 0; i < arr.Length; i++)
             {
                 foreach (player p in arr[i].ToArray())
@@ -123,6 +131,42 @@ namespace rps_sim
                 }
 
             }
+
+            if (arr[0].Count == 0 && arr[1].Count == 0)
+            {
+                Destroy();
+                MessageBox.Show("Scissors wins");
+                
+                return;
+            }
+            else if (arr[1].Count == 0 && arr[2].Count == 0)
+            {
+                Destroy();
+                MessageBox.Show("Rock wins");
+                
+                return;
+            }
+            else if (arr[0].Count == 0 && arr[2].Count == 0)
+            {
+                Destroy();
+                MessageBox.Show("Paper wins");
+                
+                return;
+            }
+        }
+        private void Destroy()
+        {
+            MyTimer.Stop();
+            MyTimer.Enabled = false;
+            List<player>[] arr = { rock, paper, scissors };
+            foreach(List<player> item in arr)
+            {
+                foreach(player p in item)
+                {
+                    this.Controls.Remove(p.picture);
+                }
+            }
+            
         }
 
         private int GetDirection(player p)
